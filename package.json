@@ -1,0 +1,95 @@
+{
+  "name": "copilot-bot-ai",
+  "displayName": "Copilot Bot AI",
+  "description": "Send prompts to GitHub Copilot models programmatically and receive streamed text responses without opening the Chat UI.",
+  "version": "0.1.0",
+  "publisher": "your-publisher",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "keywords": [
+    "copilot",
+    "language-model",
+    "ai",
+    "background",
+    "stream",
+    "cli"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "bin": {
+    "copilot-bot": "./bin/copilot-bot.mjs"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilotBotAi.sendPrompt",
+        "title": "Copilot Bot AI: Send Prompt"
+      },
+      {
+        "command": "copilotBotAi.saveTokenForCLI",
+        "title": "Copilot Bot AI: Save Token for CLI"
+      }
+    ],
+    "configuration": {
+      "title": "Copilot Bot AI",
+      "properties": {
+        "copilotBotAi.modelFamily": {
+          "type": "string",
+          "default": "auto",
+          "enum": [
+            "auto",
+            "claude-opus-4.6",
+            "claude-sonnet-4.6",
+            "claude-sonnet-4.5",
+            "gpt-4.1",
+            "gpt-4o",
+            "gpt-5-mini",
+            "gpt-4o-mini",
+            "o1",
+            "o1-mini",
+            "o3-mini"
+          ],
+          "enumDescriptions": [
+            "Automatically pick the first available Copilot model",
+            "Anthropic Claude Opus 4.6",
+            "Anthropic Claude Sonnet 4.6 (recommended)",
+            "Anthropic Claude Sonnet 4.5",
+            "OpenAI GPT-4.1",
+            "OpenAI GPT-4o (balanced quality and speed)",
+            "OpenAI GPT-5 Mini (fast, good for inline tasks)",
+            "OpenAI GPT-4o Mini (fast, lightweight)",
+            "OpenAI o1 (reasoning model)",
+            "OpenAI o1-mini (fast reasoning model)",
+            "OpenAI o3-mini"
+          ],
+          "description": "Which Copilot language model family to use by default."
+        },
+        "copilotBotAi.systemPrompt": {
+          "type": "string",
+          "default": "",
+          "description": "Optional system-level instructions sent as the first message to the model."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package",
+    "package:install": "vsce package && code --install-extension copilot-bot-ai-*.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.99.0",
+    "typescript": "^5.5.0",
+    "@vscode/vsce": "^3.0.0"
+  }
+}
